@@ -1,5 +1,6 @@
+
 import React, { useState } from 'react';
-import { signIn } from '../services/AuthService';
+// import { signIn } from '../appwrite/auth';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

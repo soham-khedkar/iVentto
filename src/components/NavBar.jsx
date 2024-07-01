@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { onAuthStateChanged, signOut } from '../services/AuthService';
+import auth from '../appwrite/auth';
 
-const Navbar = () => {
+const NavBar = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged((user) => {
-      setUser(user);
-    });
+    const unsubscribe = auth.getCurrentUser().then(setUser);
     return () => unsubscribe();
   }, []);
 
   const handleSignOut = () => {
-    signOut();
+    auth.logout().then(() => setUser(null));
   };
 
   return (
@@ -32,8 +30,8 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Link to="/signup" className="text-black">Sign Up</Link>
-                <Link to="/login" className="text-black">Login</Link>
+                <Link to="/signupPage" className="text-black">Sign Up</Link>
+                <Link to="/loginPage" className="text-black">Login</Link>
               </>
             )}
           </div>
@@ -43,4 +41,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavBar;
