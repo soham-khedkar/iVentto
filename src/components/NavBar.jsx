@@ -1,21 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import auth from '../appwrite/auth';
+import { Button } from '@headlessui/react'
 
 const NavBar = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = auth.getCurrentUser().then(setUser);
-    return () => unsubscribe();
+    const fetchUser = async () => {
+      const currentUser = await auth.getCurrentUser();
+      setUser(currentUser);
+    };
+
+    fetchUser();
   }, []);
 
-  const handleSignOut = () => {
-    auth.logout().then(() => setUser(null));
+  const handleSignOut = async () => {
+    await auth.logOut();
+    setUser(null);
   };
 
   return (
-    <nav className="bg-white bg-opacity-30 backdrop-blur-md shadow-md">
+    <nav className="bg-white bg-opacity-30 backdrop-blur-md shadow-md fixed w-full top-0 z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
@@ -30,8 +36,16 @@ const NavBar = () => {
               </>
             ) : (
               <>
-                <Link to="/signupPage" className="text-black">Sign Up</Link>
-                <Link to="/loginPage" className="text-black">Login</Link>
+                <Link to="/signupPage" >
+                <Button className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white">
+      SignUp
+    </Button>
+                </Link>
+                <Link to="/loginPage">
+                <Button className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white">
+      Login
+    </Button>
+                </Link>
               </>
             )}
           </div>

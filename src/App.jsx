@@ -13,8 +13,8 @@ function App() {
       <Routes>
         <Route exact path="/" element={<HomePage />} />
         {/* <Route path="/event/:id" element={<EventPage />} /> */}
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signUpPage" element={<SignupPage />} />
+        <Route path="/loginPage" element={<LoginPage />} />
       </Routes>
     </Router>
   

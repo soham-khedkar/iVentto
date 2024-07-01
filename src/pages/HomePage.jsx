@@ -1,26 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// import { onAuthStateChanged, signOut } from '../services/AuthService';
-import Navbar from '../components/NavBar'; 
+import auth from '../appwrite/auth'; // Assuming your auth service file is named 'auth.js'
+import Navbar from '../components/NavBar';
 
 const HomePage = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged((user) => {
-      setUser(user);
-    });
-    return () => unsubscribe();
+    const fetchUser = async () => {
+      try {
+        const currentUser = await auth.getCurrentUser();
+        setUser(currentUser);
+      } catch (error) {
+        setUser(null);
+      }
+    };
+
+    fetchUser();
   }, []);
 
-  const handleSignOut = () => {
-    signOut();
+  const handleSignOut = async () => {
+    try {
+      await auth.logOut();
+      setUser(null);
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="fixed top-0 left-0 right-0 bottom-0 flex flex-col items-center justify-center min-h-screen ">
       <Navbar /> {/* Render Navbar directly here */}
-      <div className="container mx-auto py-8">
+      <div className="w-full max-w-screen-lg px-4">
         <h1 className="text-3xl font-bold text-center mb-8">Welcome to Iventto</h1>
         
         {user ? (

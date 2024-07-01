@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { onAuthStateChanged, signOut } from '../services/AuthService';
+import { onAuthStateChanged, signOut } from '../appwrite/auth';
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
