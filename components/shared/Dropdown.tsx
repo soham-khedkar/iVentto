@@ -6,7 +6,7 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select"
-import { ICategory } from '@/lib/database/models/category.models'
+import { ICategory } from '@/lib/database/models/category.model'
   
 type DropdownProps = {
     value?: string
