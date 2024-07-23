@@ -24,9 +24,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider
-    afterSignOutUrl='/'
-    >
+    <ClerkProvider>
       <html lang="en">
         <body className={poppins.variable}>{children}</body>
       </html>
