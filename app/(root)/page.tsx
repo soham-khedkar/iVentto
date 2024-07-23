@@ -46,7 +46,7 @@ export default async function Home(){
         collectionType = 'All_Events'
         limit= {6}
         page={1}
-        totalPages={events?.totalPages}
+        totalPages={2}
         />
       </section>
 
