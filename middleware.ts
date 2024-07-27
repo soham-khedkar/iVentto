@@ -10,6 +10,9 @@ export default clerkMiddleware((auth, req) => {
 })
 
 export const config = {
-  matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
-
+  matcher: [
+    "/((?!.*\\..*|_next|api/uploadthing).*)", // Exclude /api/uploadthing from being matched
+    "/",
+    "/(api|trpc)(.*)"
+  ],
 }
